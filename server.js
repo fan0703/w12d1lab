@@ -23,9 +23,16 @@ app.get('/fruits/', (req, res) => {
     // res.send(fruits);
     res.render('fruits/FruitsIndex', {fruits: fruits})
 });
+app.get('/vegetables', (req, res)=>{
+    res.render('vegetables/VegetablesIndex', {vegetables: vegetables})
+})
 //New - get the form to add a new fruit
 app.get('/fruits/new', (req, res)=>{
     res.render('fruits/New')
+})
+
+app.get('/vegetables/new', (req, res)=>{
+    res.render('vegetables/New')
 })
 //delet
 //update
@@ -40,7 +47,15 @@ app.post('/fruits', (req, res)=>{
     res.redirect('/fruits'); //send the user back to /fruits
 });
 
-
+app.post('/vegetables', (req, res)=>{
+    if(req.body.readyToEat === 'on'){ //if checked, req.body.readyToEat is set to 'on'
+        req.body.readyToEat = true;
+    } else { //if not checked, req.body.readyToEat is undefined
+        req.body.readyToEat = false;
+    }
+    vegetables.push(req.body)
+    res.redirect('/vegetables')
+})
 //show route
 // app.get('/fruits/:indexOfFruitsArray', (req,res)=>{
 //     res.send(fruits[req.params.indexOfFruitsArray])
